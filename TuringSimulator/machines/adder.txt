@@ -1,0 +1,77 @@
+rules:
+start _ -> approach_first_num _ L
+start 0 -> start 0 R
+start 1 -> start 1 R
+
+approach_first_num     _ -> approach_first_num     _ L
+approach_first_num     0 -> depart_first_num_0     _ R
+approach_first_num     1 -> depart_first_num_1     _ R
+
+approach_first_num_c   _ -> approach_first_num_c   _ L
+approach_first_num_c   0 -> depart_first_num_1     _ R
+approach_first_num_c   1 -> depart_first_num_2     _ R
+
+depart_first_num_0     _ -> depart_first_num_0     _ R
+depart_first_num_0     0 -> seek_second_num_0      0 R
+depart_first_num_0     1 -> seek_second_num_0      1 R
+
+depart_first_num_1     _ -> depart_first_num_1     _ R
+depart_first_num_1     0 -> seek_second_num_1      0 R
+depart_first_num_1     1 -> seek_second_num_1      1 R 
+
+depart_first_num_2     _ -> depart_first_num_2     _ R
+depart_first_num_2     0 -> seek_second_num_2      0 R
+depart_first_num_2     1 -> seek_second_num_2      1 R     
+
+seek_second_num_0      _ -> approach_second_num_0  _ L
+seek_second_num_0      0 -> seek_second_num_0      0 R
+seek_second_num_0      1 -> seek_second_num_0      1 R
+
+seek_second_num_1      _ -> approach_second_num_1  _ L
+seek_second_num_1      0 -> seek_second_num_1      0 R
+seek_second_num_1      1 -> seek_second_num_1      1 R
+
+seek_second_num_2      _ -> approach_second_num_2  _ L
+seek_second_num_2      0 -> seek_second_num_2      0 R
+seek_second_num_2      1 -> seek_second_num_2      1 R
+
+approach_second_num_0  0 -> depart_second_num_0    _ R
+approach_second_num_0  1 -> depart_second_num_1    _ R
+
+approach_second_num_1  0 -> depart_second_num_1    _ R
+approach_second_num_1  1 -> depart_second_num_2    _ R
+
+approach_second_num_2  0 -> depart_second_num_2    _ R
+approach_second_num_2  1 -> depart_second_num_3    _ R
+
+depart_second_num_0    _ -> return_to_second_num_0    0 L
+depart_second_num_1    _ -> return_to_second_num_0    1 L
+depart_second_num_2    _ -> return_to_second_num_0_c  0 L
+depart_second_num_3    _ -> return_to_second_num_0_c  1 L
+
+return_to_second_num_0   _ -> return_to_second_num_1   _ L
+
+return_to_second_num_1   _ -> right_and_done           _ R
+return_to_second_num_1   0 -> return_past_second_num   0 L
+return_to_second_num_1   1 -> return_past_second_num   1 L
+
+return_to_second_num_0_c _ -> return_to_second_num_1_c _ L
+
+return_to_second_num_1_c _ -> add_extra_bit            _ R
+return_to_second_num_1_c 0 -> return_past_second_num_c 0 L
+return_to_second_num_1_c 1 -> return_past_second_num_c 1 L
+
+return_past_second_num   _ -> approach_first_num       _ L
+return_past_second_num   0 -> return_past_second_num   0 L
+return_past_second_num   1 -> return_past_second_num   1 L
+
+return_past_second_num_c _ -> approach_first_num_c     _ L
+return_past_second_num_c 0 -> return_past_second_num_c 0 L
+return_past_second_num_c 1 -> return_past_second_num_c 1 L
+
+
+add_extra_bit            _ -> right_and_done           1 L
+right_and_done           _ -> done                     _ R  
+
+starting state: start
+terminating states: done

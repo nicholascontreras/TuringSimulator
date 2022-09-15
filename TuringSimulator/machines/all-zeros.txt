@@ -1,0 +1,14 @@
+rules:
+start 0 -> advance _ R
+start 1 -> advance _ R
+start _ -> accept _ L
+
+advance 0 -> advance 0 R
+advance 1 -> advance 0 R
+advance _ -> return  0 L
+
+return 0 -> return 0 L
+return _ -> accept _ R
+
+starting state: start
+terminating states: accept
