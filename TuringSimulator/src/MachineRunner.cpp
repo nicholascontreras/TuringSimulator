@@ -43,18 +43,16 @@ void MachineRunner::run_on_tests(string machine_string, vector<string> tests) {
 	using strutil::extract_until;
 	using strutil::skip_past;
 
+	if (VERIFY_BEFORE) {
+		TuringMachine::from_string(machine_string, "").verify_complete_from_current_state();
+	}
+
 	int num_tests = 0, num_failed = 0;
-	
 	for (string cur_test : tests) {
 		string starting_tape = trim(extract_until(cur_test, "->"));
 		string expected_ending_tape = trim(skip_past(cur_test, "->"));
 
 		TuringMachine machine = TuringMachine::from_string(machine_string, starting_tape);
-
-		if (VERIFY_BEFORE) {
-			machine.verify_complete_from_current_state();
-		}
-
 		num_tests++;
 
 		for (int i = 0; i <= MAX_NUM_STEPS; i++) {
