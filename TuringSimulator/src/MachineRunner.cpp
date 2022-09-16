@@ -72,7 +72,7 @@ void MachineRunner::run_on_tests(string machine_string, vector<string> tests) {
 		if (!machine.is_terminated()) {
 			cout << "[FAILED] \"" << cur_test << "\"\n";
 			cout << "    - Machine execution exceeded the maximum number of allowed steps\n";
-			cout << "    - ending result was \"(" << machine.get_state().get_name() << ") " << machine.get_tape().to_string() << "\"" << endl;
+			cout << "    - ending result was \"(" << machine.get_state().get_name() << ") " << machine.get_tape().get_normalized().to_string() << "\"" << endl;
 			num_failed++;
 		}
 	}
